@@ -1,0 +1,17 @@
+
+.hovertag {
+ cursor: pointer;   
+}
+.nav-link{
+    cursor: pointer;
+}
+.hovertag:hover{
+    background:#687077;
+}
+
+.favorite{
+
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #5cb85c;
+}

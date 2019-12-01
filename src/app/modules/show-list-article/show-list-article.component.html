@@ -1,0 +1,28 @@
+<div *ngIf="articles?.length==0" class="article-preview">
+    <p> No articles are here... yet. </p>
+</div>
+<div class="article-preview" *ngFor="let article of articles;let i=index">
+    <div class="article-meta">
+        <a [routerLink]="['/users',article.author.username]" routerLinkActive="active"><img
+                src="{{article.author.image}}" /></a>
+        <div class="info">
+            <a [routerLink]="['/users',article.author.username]" routerLinkActive="active"
+                class="author">{{article.author.username}}</a>
+            <span class="date">{{article.createdAt|date:'longDate'}}</span>
+        </div>
+        <button class="btn btn-outline-primary btn-sm pull-xs-right " [class.favorite]="article.favorited"
+            (click)="handleFavourite(article.favorited,article.slug,i)">
+            <i class="ion-heart"></i> {{article.favoritesCount}}
+        </button>
+    </div>
+    <a class="preview-link" [routerLink]="['/article',article.slug]" routerLinkActive="active">
+        <h1>{{article.title}}</h1>
+        <p>{{article.description}}</p>
+        <span>Read more...</span>
+    </a>
+    <div class="tag-list " [routerLink]="['/article',article.slug]"
+        style="float: right;max-width: 50%;vertical-align: top; cursor: pointer;">
+        <span *ngFor="let tag of article.tagList" class="tag-default tag-pill tag-outline ng-binding ng-scope">
+            {{tag}} </span>
+    </div>
+</div>

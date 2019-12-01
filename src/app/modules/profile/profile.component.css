@@ -1,0 +1,13 @@
+.favorite{
+
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+}
+a:hover{
+    text-decoration: underline;
+    
+}
+li{
+    cursor: pointer;
+}

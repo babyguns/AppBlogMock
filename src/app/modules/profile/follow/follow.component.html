@@ -1,0 +1,26 @@
+<button class="btn btn-sm btn-outline-secondary mr-1" *ngIf="isYourProfile"
+  [routerLink]="['/','editor',this.ArticleDetail.slug]" routerLinkActive="active">
+  <i class="ion-edit"></i> Edit Article
+  &nbsp;
+  <span class="counter"></span>
+</button>
+<button class="btn btn-sm btn-outline-danger" *ngIf="isYourProfile" (click)="deleteArticle()">
+  <i class="ion-trash-a"></i> Delete Article
+  &nbsp;
+  <span class="counter"></span>
+</button>
+
+<button class="btn btn-sm btn-outline-secondary" *ngIf="!isYourProfile" (click)="handleFollow(ArticleDetail.author.following,ArticleDetail.author.username)"
+[class.follow]="ArticleDetail.author.following"
+ >
+  <i class="ion-plus-round"></i>  {{ArticleDetail.author.following?'Unfollow':'Follow'}} {{ArticleDetail.author.username}}
+  &nbsp;
+  <span class="counter"></span>
+</button>
+&nbsp;&nbsp;
+<button class="btn btn-sm btn-outline-primary" *ngIf="!isYourProfile" (click)="handleFavorite(ArticleDetail.favorited,ArticleDetail.slug)"
+[class.favorite]="ArticleDetail?.favorited">
+  <i class="ion-heart"></i> {{ArticleDetail?.favorited?'UnFavorite':'Favorite'}} Article
+  &nbsp;
+  <span class="counter">({{ArticleDetail?.favoritesCount}})</span>
+</button>

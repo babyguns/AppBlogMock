@@ -1,0 +1,51 @@
+<ul class="home-page">
+
+  <div class="banner" *ngIf="!auth.isLogged">
+    <div class="container">
+      <h1 class="logo-font">conduit</h1>
+      <p>A place to share your knowledge.</p>
+    </div>
+  </div>
+
+  <div class="container page">
+    <div class="row">
+
+      <div class="col-md-9">
+        <div class="feed-toggle">
+          <ul class="nav nav-pills outline-active">
+            <li class="nav-item" *ngIf="auth.isLogged">
+              <a class="nav-link" [class.active]="currentTab==1" (click)="handleFeed()">Your Feed</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [class.active]="currentTab==2" (click)="handleGlobal()">Global Feed</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [class.active]="currentTab==3" *ngIf="tagSelected"># {{tagSelected}}</a>
+            </li>
+          </ul>
+
+        </div>
+        <app-show-list-article [articles]="listArticle"></app-show-list-article>
+      </div>
+
+      <div class="col-md-3">
+        <div class="sidebar">
+          <p>Popular Tags</p>
+
+          <div class="tag-list">
+            <a class="tag-pill tag-default hovertag" (click)="HandleTagSelected($event)"
+              *ngFor="let tag of listTag">{{tag}}</a>
+
+          </div>
+        </div>
+      </div>
+      <app-pagination *ngIf="totalPage>1" [ArticlePerPage]="ArticlePerPage" [totalPage]="totalPage"
+        (getOffset)="getOffset($event)"></app-pagination>
+
+
+    </div>
+
+
+
+
+  </div>

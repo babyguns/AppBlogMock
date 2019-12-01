@@ -1,0 +1,8 @@
+<nav>
+    <div class="pagination">
+        <div *ngFor="let page of listPage;let i=index" [class.active]="currentPage==(i+1)"
+            class="page-item ng-scope text-success">
+            <a class="page-link ng-binding" (click)="handlePageChange(i)">{{i+1}}</a>
+        </div>
+    </div>
+</nav>
