@@ -48,9 +48,8 @@ export class ArticlesComponent implements OnInit {
   }
 
   getCommentValue(event: KeyboardEvent) {
-  
+    
     this.commentAdd =(event.target as HTMLTextAreaElement).value;
-    console.log(this.commentAdd);
     
   }
   addComment() {
