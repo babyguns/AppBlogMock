@@ -85,10 +85,13 @@ export class CreateEditArticleComponent implements OnInit {
 
   }
   createArticle() {
+    console.log(this.articleForm.value);
+    
     if (this.isNewArticle) {
       this.articleForm.value['tagList'] = this.taglist;
-      this.article.createArticlebySlug(this.articleForm.value).subscribe((data:MultiArticle) => {
-        
+      this.article.createArticlebySlug(this.articleForm.value).subscribe((data:SingleArticle) => {
+        let slug=data.article.slug;
+        this.router.navigate(['/article',slug])
       },
         err => {
           this.listerrors = this.auth.showErrors(err);
@@ -97,6 +100,7 @@ export class CreateEditArticleComponent implements OnInit {
     }
   }
   editArticle() {
+    
     if (!this.isNewArticle) {
       this.articleForm.value.tagList = this.taglist;
 
