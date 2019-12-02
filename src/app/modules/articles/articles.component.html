@@ -6,7 +6,7 @@
       <h1>{{ArticleDetail?.title}}</h1>
 
       <div class="article-meta">
-        <a href=""><img src="{{ArticleDetail?.author.image}}" /></a>
+        <a [routerLink]="['/users',ArticleDetail?ArticleDetail.author.username:'']"><img [src]="ArticleDetail?.author.image" /></a>
         <div class="info">
           <a [routerLink]="['/users',ArticleDetail?ArticleDetail.author.username:'']"
             routerLinkActive="router-link-active" class="author">{{ArticleDetail?.author.username}}</a>
@@ -40,9 +40,9 @@
 
     <div class="article-actions">
       <div class="article-meta">
-        <a href=""><img src="{{ArticleDetail?.author.image}}" /></a>
+        <a [routerLink]="['/users',ArticleDetail?ArticleDetail.author.username:'']"><img [src]="ArticleDetail?.author.image" /></a>
         <div class="info">
-          <a href="" class="author">{{ArticleDetail?.author.username}}</a>
+          <a  class="author">{{ArticleDetail?.author.username}}</a>
           <span class="date">{{ArticleDetail?.updatedAt|date:'longDate'}}</span>
         </div>
         <app-follow [ArticleDetail]="ArticleDetail"></app-follow>
@@ -60,8 +60,8 @@
               placeholder="Write a comment..." rows="3" required></textarea>
           </div>
           <div class="card-footer">
-            <img src="{{currrentUser?.image}}" class="comment-author-img" />
-            <button class="btn btn-sm btn-primary" (click)="addComment()">
+            <img [src]="currrentUser?.image" class="comment-author-img" />
+            <button class="btn btn-sm btn-primary" (click)="addComment()" [disabled]="commentAdd.length==0">
               Post Comment
             </button>
           </div>
@@ -72,15 +72,15 @@
             <p class="card-text">{{singleComment.body}}</p>
           </div>
           <div class="card-footer">
-            <a href="" class="comment-author">
-              <img src="{{singleComment.author.image}}" class="comment-author-img" />
+            <a  class="comment-author">
+              <img [src]="singleComment.author.image" class="comment-author-img" />
             </a>
             &nbsp;
             <a [routerLink]="['/users',singleComment.author.username]" routerLinkActive="router-link-active"
               class="comment-author">{{singleComment.author.username}}</a>
             <span class="date-posted">{{singleComment.createdAt|date:'fullDate'}}</span>
             <span class="mod-options" *ngIf="singleComment.author.username==currrentUser?.username">
-              <i (click)="deleteComment(singleComment.id)" class="ion-trash-a"></i>
+              <i (click)="deleteComment(singleComment.id,i)" class="ion-trash-a"></i>
             </span>
 
           </div>

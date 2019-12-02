@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
   articles: Article[];
   articlePerPage: number = 5;
   offset: number = 0;
-  ProfileInfo: Profile = {
+  profileInfo: Profile = {
     username: '',
     bio: '',
     image: '',
@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
     this.router.params.subscribe((slug) => {
       this.currentUser = slug.profile;
       this.user.getProfile(this.currentUser).subscribe((data: ResultProfile) => {
-        this.ProfileInfo = data.profile;
+        this.profileInfo = data.profile;
       });
 
     })
@@ -77,12 +77,12 @@ export class ProfileComponent implements OnInit {
   handleFollow(username, checkFollow) {
     if (checkFollow) {
       return this.user.unfollowUser(username).subscribe((data: ResultProfile) => {
-        this.ProfileInfo.following = data.profile.following
+        this.profileInfo.following = data.profile.following
 
       })
     } else {
       return this.user.followUser(username).subscribe((data) => {
-        this.ProfileInfo.following = data.profile.following;
+        this.profileInfo.following = data.profile.following;
       });
 
     }

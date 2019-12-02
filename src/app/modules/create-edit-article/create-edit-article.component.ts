@@ -71,12 +71,14 @@ export class CreateEditArticleComponent implements OnInit {
     }
   }
 
-  getTaglist(event: any) {
-    let tag = event.target.value;
+  getTaglist(event: KeyboardEvent) {
+    let tag = (event.target as HTMLInputElement).value;
     if (tag) {
       this.taglist.push(tag);
     }
-    event.target.value = '';
+    (event.target as HTMLInputElement).value = '';
+  
+    
   }
   removeTag(index) {
     this.taglist.splice(index, 1);

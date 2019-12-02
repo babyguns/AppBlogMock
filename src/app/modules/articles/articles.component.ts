@@ -3,7 +3,7 @@ import { ArticlesService } from 'src/app/services/articles.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { User, ResultUser, Comment, SingleArticle, Article, MultipleComment } from 'src/app/interfaces/config-type';
+import { User, ResultUser, Comment, SingleArticle, Article, MultipleComment, SingleComment } from 'src/app/interfaces/config-type';
 
 @Component({
   selector: 'app-articles',
@@ -16,10 +16,9 @@ export class ArticlesComponent implements OnInit {
   currrentUser: User;
   commentAdd: string = '';
   listComment: Comment[];
-  ownerComment: string = '';
   isYourArticle: boolean;
-  constructor(private article: ArticlesService, private route: ActivatedRoute, private router: Router,
-    public auth: AuthService, private profile: UserService) {
+  constructor(private article: ArticlesService, private route: ActivatedRoute,
+    public auth: AuthService) {
 
   }
 
@@ -42,24 +41,28 @@ export class ArticlesComponent implements OnInit {
   }
 
   getCommentbySlug() {
-    this.article.GetCommentFromArticlebySlug(this.slug).subscribe((comment:MultipleComment) => {
+    this.article.GetCommentFromArticlebySlug(this.slug).subscribe((comment: MultipleComment) => {
       this.listComment = comment.comments
     })
   }
 
   getCommentValue(event: KeyboardEvent) {
-    
-    this.commentAdd =(event.target as HTMLTextAreaElement).value;
+
+    this.commentAdd = (event.target as HTMLTextAreaElement).value;
   }
   addComment() {
-    this.article.addCommenttoArticle(this.slug, this.commentAdd).subscribe(comment => {
+    this.article.addCommenttoArticle(this.slug, this.commentAdd).subscribe((comment: SingleComment) => {
       this.commentAdd = '';
-      this.getCommentbySlug();
-    })
+      this.listComment.unshift(comment.comment)
+    }, err => console.log(err)
+    )
   }
-  deleteComment(id) {
-    this.article.deleteCommentbySlug(this.slug, id).subscribe(comment => comment)
-    this.getCommentbySlug();
+  deleteComment(id, indexRemove) {
+    this.article.deleteCommentbySlug(this.slug, id).subscribe(comment => {
+      this.listComment.splice(indexRemove, 1);
+    }, err => console.log(err)
+    )
+
 
   }
 

@@ -1,17 +1,17 @@
-<div class="profile-page" *ngIf="ProfileInfo && articles">
+<div class="profile-page" *ngIf="profileInfo && articles">
   <div class="user-info">
     <div class="container">
       <div class="row">
 
         <div class="col-xs-12 col-md-10 offset-md-1">
-          <img src="{{ProfileInfo['image']}}" class="user-img" />
-          <h4>{{ProfileInfo.username}}</h4>
+          <img src="{{profileInfo['image']}}" class="user-img" />
+          <h4>{{profileInfo.username}}</h4>
           <p>
-            {{ProfileInfo.bio}}
+            {{profileInfo.bio}}
           </p>
           <button class="btn btn-sm btn-outline-secondary action-btn"
-            (click)="handleFollow(ProfileInfo.username,ProfileInfo.following)" *ngIf="!isYourprofile">
-            + {{ProfileInfo.following?'Unfollow':'Follow'}} {{ProfileInfo.username}}
+            (click)="handleFollow(profileInfo.username,profileInfo.following)" *ngIf="!isYourprofile">
+            + {{profileInfo.following?'Unfollow':'Follow'}} {{profileInfo.username}}
 
           </button>
           <button class="btn btn-sm btn-outline-secondary action-btn" [routerLink]="['/setting']"
