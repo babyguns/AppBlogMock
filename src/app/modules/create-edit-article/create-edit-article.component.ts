@@ -84,9 +84,7 @@ export class CreateEditArticleComponent implements OnInit {
     this.taglist.splice(index, 1);
 
   }
-  createArticle() {
-    console.log(this.articleForm.value);
-    
+  createArticle() {    
     if (this.isNewArticle) {
       this.articleForm.value['tagList'] = this.taglist;
       this.article.createArticlebySlug(this.articleForm.value).subscribe((data:SingleArticle) => {

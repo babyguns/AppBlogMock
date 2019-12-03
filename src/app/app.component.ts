@@ -8,38 +8,10 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'Mock-Project';
-  username: string = '';
-  img: string = '';
 
-  constructor(public auth: AuthService) {
-    // this.auth.getCurrentUser().subscribe(data => {
-    //   if (data) {
-    //     this.auth.getChangeCurrenUser.next(data.user)
-    //   }
+  constructor(public auth: AuthService) { }
 
-    // })
-    this.auth.getCurrentUser().subscribe(data => {
-      if (data) {
-        this.auth.newCurrentUser.next(data.user)
-      }
+  ngOnInit() { }
 
-    })
-  }
-
-  ngOnInit() {
-      this.auth.newCurrentUser.subscribe(data=>{
-        this.username=data['username'];
-        this.img=data['image'];
-      })
-    // this.auth.getChangeCurrenUser.subscribe(data => {
-    //   this.username = data.username;
-    // this.img = data.image;
-    // });
-
-  }
-
-  logout() {
-    this.auth.logout();
-  }
 
 }

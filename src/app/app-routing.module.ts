@@ -11,9 +11,12 @@ import { ArticlesComponent } from './modules/articles/articles.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AuthGuard } from './auth.guard';
-import { FollowComponent } from './modules/profile/follow/follow.component';
-import { ShowListArticleComponent } from './modules/show-list-article/show-list-article.component';
-import { PaginationComponent } from './modules/pagination/pagination.component';
+
+import { SharedModule } from './modules/sharedModule/shared/shared.module';
+import { HeaderComponent } from './modules/headerfooter/header/header.component';
+import { FooterComponent } from './modules/headerfooter/footer/footer.component';
+
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -33,16 +36,20 @@ const routes: Routes = [
     CreateEditArticleComponent,
     ArticlesComponent,
     ProfileComponent,
-    FollowComponent,
-    ShowListArticleComponent,
-    PaginationComponent
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedModule,
     RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [
+    SharedModule,
+    HeaderComponent,
+    FooterComponent,
+    RouterModule]
 })
 export class AppRoutingModule { }
