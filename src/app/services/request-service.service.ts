@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RequestServiceService {
-  base_url='https://conduit.productionready.io/api/';
+  api_url='https://conduit.productionready.io/api/';
   
   constructor(private http:HttpClient) { }
   headers:HttpHeaders;
@@ -17,25 +17,25 @@ export class RequestServiceService {
     })
   }
   getData(endpoint,params={}):Observable<any>{
-    return this.http.get(this.base_url+endpoint,{
+    return this.http.get(this.api_url+endpoint,{
       params:params,
       headers:this.headers
 
     })
   }
   postData(endpoint,postData={}):Observable<any>{
-    return this.http.post(this.base_url+endpoint,postData,{
+    return this.http.post(this.api_url+endpoint,postData,{
       headers:this.headers
     })
   }
   putData(endpoint,dataUpdate={}):Observable<any>{
-    return this.http.put(this.base_url+endpoint,dataUpdate,{
+    return this.http.put(this.api_url+endpoint,dataUpdate,{
       headers:this.headers
     })
   }
 
   deleteData(endpoint):Observable<any>{
-    return this.http.delete(this.base_url+endpoint,{
+    return this.http.delete(this.api_url+endpoint,{
       headers:this.headers
     })
 

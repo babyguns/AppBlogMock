@@ -18,9 +18,9 @@ import { PaginationComponent } from '../sharedComponent/pagination/pagination.co
     RouterModule
   ],
   exports: [
-    FollowComponent, 
+    FollowComponent,
     ShowListArticleComponent,
-     PaginationComponent
+    PaginationComponent
   ]
 })
 export class SharedModule { }
