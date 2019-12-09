@@ -76,11 +76,11 @@ export class AuthService {
     this.router.navigateByUrl('/');
   }
   checkLoginAndNavigate() {
-    {
+    
       if (!this.isLogged) {
         this.router.navigateByUrl('/login');
       };
-    }
+    
     return this.isLogged;
   }
 

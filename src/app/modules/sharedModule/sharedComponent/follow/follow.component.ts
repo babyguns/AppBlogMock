@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ArticlesService } from 'src/app/services/articles.service';
 import { Router } from '@angular/router';
 import { Article } from 'src/app/interfaces/config-type';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-follow',
@@ -12,7 +13,7 @@ import { Article } from 'src/app/interfaces/config-type';
 export class FollowComponent implements OnInit {
   isYourProfile:boolean;
  @Input() public ArticleDetail:Article;
-  constructor(private profile:UserService,private article:ArticlesService,private router:Router) {}
+  constructor(private profile:UserService,private article:ArticlesService,private router:Router,private auth:AuthService) {}
   
   ngOnInit() {
     
@@ -28,33 +29,43 @@ export class FollowComponent implements OnInit {
 
   
   handleFollow(checkFollow, username) {
-    if (checkFollow) {
-      this.profile.unfollowUser(username).subscribe(data => data);
-      this.ArticleDetail.author.following = false;
-    } else {
-      this.profile.followUser(username).subscribe(data => data);
-      this.ArticleDetail.author.following = true;
+    if(this.auth.isLogged){
+      if (checkFollow) {
+        this.profile.unfollowUser(username).subscribe(data => data);
+        this.ArticleDetail.author.following = false;
+      } else {
+        this.profile.followUser(username).subscribe(data => data);
+        this.ArticleDetail.author.following = true;
+      }
+    }else{
+      this.router.navigateByUrl('/login')
     }
+   
   }
     deleteArticle(){
       this.article.deleteArticlebySlug(this.ArticleDetail.slug).subscribe(data=>data);
       this.router.navigateByUrl('/')
     }
     handleFavorite(checkFavorite, slug) {
-      if (checkFavorite) {
-        this.article.unfavoriteArticle(slug).subscribe(data =>{
-          this.ArticleDetail.favoritesCount=data.article.favoritesCount
-  
-        } );
-        this.ArticleDetail.favorited=false;
+      if(this.auth.isLogged){
+        if (checkFavorite) {
+          this.article.unfavoriteArticle(slug).subscribe(data =>{
+            this.ArticleDetail.favoritesCount=data.article.favoritesCount
+    
+          } );
+          this.ArticleDetail.favorited=false;
+        }
+        else{
+          this.article.favoriteArticle(slug).subscribe(data=>{
+            this.ArticleDetail.favoritesCount=data.article.favoritesCount
+    
+          });
+          this.ArticleDetail.favorited=true;
+        }
+      }else{
+        this.router.navigateByUrl('/login')
       }
-      else{
-        this.article.favoriteArticle(slug).subscribe(data=>{
-          this.ArticleDetail.favoritesCount=data.article.favoritesCount
-  
-        });
-        this.ArticleDetail.favorited=true;
-      }
+      
   
     }
 }
