@@ -66,7 +66,11 @@
             </button>
           </div>
         </form>
-
+        <p *ngIf="!auth.isLogged">
+          <a [routerLink]="['/','login']" routerLinkActive="active" >Sign In</a> or 
+          <a [routerLink]="['/','register']" routerLinkActive="active" >Sign Up</a>
+          to add comments on this article.
+        </p>
         <div class="card" *ngFor="let singleComment of listComment;let i = index">
           <div class="card-block">
             <p class="card-text">{{singleComment.body}}</p>

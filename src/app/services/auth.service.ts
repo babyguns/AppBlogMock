@@ -9,8 +9,7 @@ import { User } from '../interfaces/config-type';
   providedIn: 'root'
 })
 export class AuthService {
-  // getChangeCurrenUser: BehaviorSubject<any>;
-  getCurrentPage: BehaviorSubject<any> = new BehaviorSubject('');
+  public getCurrentPage: BehaviorSubject<any> = new BehaviorSubject(1);
   public newCurrentUser = new Subject();
   user: User = {
     bio: '',
@@ -21,7 +20,6 @@ export class AuthService {
   };
   isLogged: boolean = false;
   constructor(private request: RequestServiceService, private router: Router) {
-    // this.getChangeCurrenUser = new BehaviorSubject('arguf');
 
     if (localStorage.getItem('token')) {
       this.isLogged = true;
@@ -43,12 +41,12 @@ export class AuthService {
   navigateTohome() {
     this.router.navigateByUrl('/');
   }
-  handleAfterSuccess(data: User) {
+  handleAfterSuccess(user: User) {
     this.isLogged = true;
-    localStorage.setItem('username', data.username);
-    localStorage.setItem('token', data.token);
+    localStorage.setItem('username', user.username);
+    localStorage.setItem('token', user.token);
     this.request.getToken();
-    this.next(data)
+    this.next(user)
     this.router.navigateByUrl('/');
 
   }
