@@ -4,7 +4,7 @@
 <div class="article-preview" *ngFor="let article of articles;let i=index">
     <div class="article-meta">
         <a [routerLink]="['/users',article.author.username]" routerLinkActive="active"><img
-                src="{{article.author.image}}" /></a>
+                [src]="article.author.image" /></a>
         <div class="info">
             <a [routerLink]="['/users',article.author.username]" routerLinkActive="active"
                 class="author">{{article.author.username}}</a>
@@ -12,7 +12,7 @@
         </div>
         <button class="btn btn-outline-primary btn-sm pull-xs-right " [class.favorite]="article.favorited"
             (click)="handleFavourite(article.favorited,article.slug,i)">
-            <i class="ion-heart"></i> {{article.favoritesCount}}
+            <i class="ion-heart"></i> {{article.favoritesCount}} 
         </button>
     </div>
     <a class="preview-link" [routerLink]="['/article',article.slug]" routerLinkActive="active">

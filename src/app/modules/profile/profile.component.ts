@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService,  } from 'src/app/services/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { UserService, } from 'src/app/services/user.service';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ArticlesService } from 'src/app/services/articles.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { ResultProfile,Article, MultiArticle, SingleArticle,Profile} from 'src/app/interfaces/config-type';
+import { ResultProfile, Article, MultiArticle, SingleArticle, Profile } from 'src/app/interfaces/config-type';
 
 @Component({
   selector: 'app-profile',
@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
   }
   totalPage: number;
 
-  constructor(private user: UserService,
+  constructor(private user: UserService, private route: Router,
     private router: ActivatedRoute, private articleService: ArticlesService, private auth: AuthService) {
   }
 
@@ -75,17 +75,22 @@ export class ProfileComponent implements OnInit {
     })
   }
   handleFollow(username, checkFollow) {
-    if (checkFollow) {
-      return this.user.unfollowUser(username).subscribe((data: ResultProfile) => {
-        this.profileInfo.following = data.profile.following
+    if (this.auth.isLogged) {
+      if (checkFollow) {
+        return this.user.unfollowUser(username).subscribe((data: ResultProfile) => {
+          this.profileInfo.following = data.profile.following
 
-      })
+        })
+      } else {
+        return this.user.followUser(username).subscribe((data) => {
+          this.profileInfo.following = data.profile.following;
+        });
+
+      }
     } else {
-      return this.user.followUser(username).subscribe((data) => {
-        this.profileInfo.following = data.profile.following;
-      });
-
+      this.route.navigateByUrl('/register')
     }
+
   }
   getOffset(data) {
     this.offset = data;

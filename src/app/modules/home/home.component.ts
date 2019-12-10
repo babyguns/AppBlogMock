@@ -25,6 +25,8 @@ export class HomeComponent implements OnInit {
   constructor(public auth: AuthService, private articlesService: ArticlesService) { }
 
   ngOnInit() {
+    this.articlesService.getTags().subscribe(data => { this.listTag = data['tags'] })
+
     this.currentPage = 1;
     if (this.auth.isLogged) {
       this.currentTab = 1;
@@ -39,7 +41,6 @@ export class HomeComponent implements OnInit {
         this.setData(data);
       })
     }
-    this.articlesService.getTags().subscribe(data => { this.listTag = data['tags'] })
 
   }
 
