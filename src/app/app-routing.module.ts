@@ -26,7 +26,8 @@ const routes: Routes = [
   { path: 'editor', canActivate: [AuthGuard], component: CreateEditArticleComponent },
   { path: 'editor/:slug', canActivate: [AuthGuard], component: CreateEditArticleComponent },
   { path: 'article/:slug', component: ArticlesComponent },
-  { path: 'users/:profile', component: ProfileComponent }
+  { path: 'users/:profile', component: ProfileComponent },
+  { path:'**',redirectTo:'',pathMatch:'full'}
 ];
 
 @NgModule({

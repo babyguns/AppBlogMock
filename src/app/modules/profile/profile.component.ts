@@ -37,17 +37,17 @@ export class ProfileComponent implements OnInit {
     this.router.params.subscribe((slug) => {
       this.currentUser = slug.profile;
       this.user.getProfile(this.currentUser).subscribe((data: ResultProfile) => {
-        this.profileInfo = data.profile;
+        
+        this.profileInfo = data.profile;        
       });
+      this.isYourprofile = (this.currentUser == localStorage.getItem('username'))
+      this.articleService.getArticleGlobal(this.articlePerPage, this.offset, { author: this.currentUser }).subscribe((data: MultiArticle) => {
+        this.handleData(data);
+        this.currentTab = 'ArticlesTab';
+      })
 
     })
-    this.isYourprofile = (this.currentUser == localStorage.getItem('username'))
-    this.currentTab = 'ArticlesTab';
-    this.articleService.getArticleGlobal(this.articlePerPage, this.offset, { author: this.currentUser }).subscribe((data: MultiArticle) => {
-      this.handleData(data);
-
-
-    })
+   
   }
   handleData(data: MultiArticle) {
 
