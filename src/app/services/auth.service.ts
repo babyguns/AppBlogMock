@@ -51,21 +51,20 @@ export class AuthService {
 
   }
 
-  getCurrentUser() {
+  getCurrentUser(){
     if (this.isLogged == true) {
 
       return this.request.getData("user")
     }
-    return of(undefined);
+   
   }
   showErrors(err) {
     let listerros = [];
-
     let errors = err.error.errors;
-
     for (let key of Object.keys(errors)) {
-      listerros.push(`${key} ${errors[key]}`)
-
+      for (let k of errors[key]) {
+        listerros.push(`${key} ${k}`)
+      }
     }
     return listerros;
   }
@@ -76,11 +75,11 @@ export class AuthService {
     this.router.navigateByUrl('/');
   }
   checkLoginAndNavigate() {
-    
-      if (!this.isLogged) {
-        this.router.navigateByUrl('/login');
-      };
-    
+
+    if (!this.isLogged) {
+      this.router.navigateByUrl('/login');
+    };
+
     return this.isLogged;
   }
 

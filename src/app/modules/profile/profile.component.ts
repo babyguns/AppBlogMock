@@ -36,11 +36,10 @@ export class ProfileComponent implements OnInit {
 
     this.router.params.subscribe((slug) => {
       this.currentUser = slug.profile;
+      this.isYourprofile = (slug.profile == localStorage.getItem('username'))
       this.user.getProfile(this.currentUser).subscribe((data: ResultProfile) => {
-        
         this.profileInfo = data.profile;        
       });
-      this.isYourprofile = (this.currentUser == localStorage.getItem('username'))
       this.articleService.getArticleGlobal(this.articlePerPage, this.offset, { author: this.currentUser }).subscribe((data: MultiArticle) => {
         this.handleData(data);
         this.currentTab = 'ArticlesTab';
