@@ -52,11 +52,13 @@ export class AuthService {
   }
 
   getCurrentUser(){
-    if (this.isLogged == true) {
-
+    if (this.isLoggedBoolean == true) {
       return this.request.getData("user")
     }
-   
+  }
+
+  get isLoggedBoolean(): boolean{
+    return this.isLogged;
   }
   showErrors(err) {
     let listerros = [];

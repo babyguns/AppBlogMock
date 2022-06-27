@@ -10,13 +10,11 @@ export class HeaderComponent implements OnInit {
   username:string;
   img:string;
   constructor(public auth: AuthService) {
-   
-    this.auth.getCurrentUser().subscribe(data => {
+    this.auth.isLoggedBoolean ? this.auth.getCurrentPage.subscribe(data => {
       if (data) {
-        this.auth.next(data.user)
+        this.auth.next(data.user);
       }
-
-    })
+    }) : "";
   }
 
   ngOnInit() {
@@ -24,7 +22,7 @@ export class HeaderComponent implements OnInit {
         this.username=data['username'];
         this.img=data['image'];
       })
-    
+
 
   }
 
